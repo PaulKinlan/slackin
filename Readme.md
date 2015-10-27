@@ -7,7 +7,7 @@ to a Slack server. Like Freenode, but on Slack.
 It provides
 
 - A landing page you can point users to fill in their
-  emails and receive an invite (`http://slack.yourdomain.com`)
+  emails and receive an invite (`https://slack.yourdomain.com`)
 - An `<iframe>` badge to embed on any website
   that shows connected users in *realtime* with socket.io.
 - A SVG badge that works well from static mediums
@@ -19,16 +19,24 @@ Read more about the [motivations and history](http://rauchg.com/slackin) behind 
 
 ### Server
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rauchg/slackin/tree/0.5.1)
+#### Heroku
 
-Or install it and launch it on your server:
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rauchg/slackin/tree/0.6.0)
+
+#### OpenShift
+
+[Follow these instructions.](https://github.com/rauchg/slackin/wiki/OpenShift)
+
+#### Custom
+
+Install it and launch it on your server:
 
 ```bash
 $ npm install -g slackin
 $ slackin "your-slack-subdomain" "your-slack-token"
 ```
 
-You can find your API token at [api.slack.com/web](https://api.slack.com/web) – note that the user you use to generate the token must be an admin. You may want to create a dedicated `@slackin-inviter` user (or similar) for this.
+You can find your API token at [api.slack.com/web](https://api.slack.com/web) – note that the user you use to generate the token must be an admin. You need to create a dedicated `@slackin-inviter` user (or similar), mark that user an admin, and use a token from that dedicated admin user.
 
 The available options are:
 
@@ -56,13 +64,13 @@ Workaround: sign up for a free org, and set up Slackin to point to it
 [![](https://cldup.com/IaiPnDEAA6.gif)](http://slack.socket.io)
 
 ```html
-<script async defer src="http://slack.yourdomain.com/slackin.js"></script>
+<script async defer src="https://slack.yourdomain.com/slackin.js"></script>
 ```
 
 or for the large version, append `?large`:
 
 ```html
-<script async defer src="http://slack.yourdomain.com/slackin.js?large"></script>
+<script async defer src="https://slack.yourdomain.com/slackin.js?large"></script>
 ```
 
 ### SVG
@@ -70,14 +78,18 @@ or for the large version, append `?large`:
 [![](https://cldup.com/jWUT4QFLnq.png)](http://slack.socket.io)
 
 ```html
-<img src="http://slack.yourdomain.com/badge.svg">
+<img src="https://slack.yourdomain.com/badge.svg">
 ```
+
+Done in Markdown this looks like:
+
+    [![Slack Status](https://slack.yourdomain.com/badge.svg)](https://yourdomain.com)
 
 ### Landing page
 
 [![](https://cldup.com/WIbawiqp0Q.png)](http://slack.socket.io)
 
-Point to `http://slack.yourdomain.com`.
+Point to `https://slack.yourdomain.com`.
 
 **Note:** the image for the logo of the landing page
 is retrieved from the Slack API. If your organization
@@ -103,6 +115,20 @@ This will show response times from Slack and how many
 online users you have on the console.
 
 By default logging is enabled.
+
+## Developing
+
+Slackin's server side code is written in ES6. It uses babel to transpile the 
+ES6 code to a format node understands. After cloning Slackin, you should 
+install the prerequisite node libraries with npm:
+
+```bash
+$ npm install
+```
+
+After the libraries install, the postinstall script will run make to invoke
+babel on the source. It is important to run make manually after updating any 
+files in lib/ to update the versions in node/.
 
 ## Credits
 
